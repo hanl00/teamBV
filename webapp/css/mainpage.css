@@ -28,11 +28,21 @@ body {
     background-color: #3e8e41;
 }
 
-#h1 {
-    color: red;
-    background=purple;
-    border=2px;
-    align=center;
+.headstyle {
+   color: purple;
+   text-align: center;
+   border-style: solid;
+   font-size: 50px;
+   margin-left:200px;
+   margin-right:200px;
+}
+.div {
+   margin-left: 100px;
+   margin-right: 100px;
+   margin-top: 50px;
+   border-style: solid;
+   font-size: 30px;
+   padding: 20px;
 }
 .a{
     color: red;
