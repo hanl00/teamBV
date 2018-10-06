@@ -27,6 +27,7 @@ body {
 .btn-group button:hover {
     background-color: #3e8e41;
 }
+
 .headstyle {
    color: purple;
    text-align: center;
@@ -35,11 +36,21 @@ body {
    margin-left:200px;
    margin-right:200px;
 
+#h1 {
+    color: red;
+    background=purple;
+    border=2px;
+    align=center;
+
 }
 .a{
     color: red;
 }
 
 a:link {
-color: black;
+    color: black;
+}
+
+.tutorial{
+    font-size: 20px;
 }
