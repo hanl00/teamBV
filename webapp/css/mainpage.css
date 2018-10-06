@@ -27,6 +27,7 @@ body {
 .btn-group button:hover {
     background-color: #3e8e41;
 }
+
 #h1 {
     color: red;
     background=purple;
@@ -38,5 +39,9 @@ body {
 }
 
 a:link {
-color: black;
+    color: black;
+}
+
+.tutorial{
+    font-size: 20px;
 }
