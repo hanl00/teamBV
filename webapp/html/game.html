@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>HACKATHON</title>
+        <meta name="description" content="Hacking for Health.">
+        <link rel="stylesheet" href="../css/mainpage.css">
+</head>
+
+<body>
+
+Money: <text id="money">40</text>
+<br>
+Health: <progress id="health" value="50" max="100">foo</progress>
+<br><br>
+<h3 id="dialogue"/>
+
+<script>
+class DecisionChoice {
+  constructor(text, time, moneySpent, healthChange, nextScene) {
+	this.text = text;
+	this.time = time;
+	this.moneySpent = moneySpent;
+	this.healthChange = healthChange;
+	this.nextScene = nextScene;
+  }
+}
+
+class Decision {
+  constructor(question) {
+	this.question = question;
+	this.choiceArray = [];
+  }
+
+  addChoice(text, time, moneySpent, healthChange, scene) {
+	this.choiceArray.push(new DecisionChoice(text, time, moneySpent, healthChange, scene));
+  }
+	
+  makeChoice() {
+	  var arrayLength = this.choiceArray.length;
+	  var choiceDiv = document.createElement('div');
+	  choiceDiv.id = "choice";
+	  document.body.appendChild(choiceDiv);
+	  for (var i = 0; i < arrayLength; i++) {
+		var elem = this.choiceArray[i];	
+		if(parseInt(document.getElementById('money').innerHTML) >= elem.moneySpent){
+			var inputElement = document.createElement('button');
+			inputElement.id = i;
+			inputElement.innerHTML = elem.text;
+			choiceDiv.appendChild(inputElement);
+		}
+	  }
+	  document.getElementById("dialogue").innerHTML = this.question;
+	  choiceDiv.innerHTML += "<br>"
+	  
+	  for (var i = 0; i <arrayLength; i++) {
+	    if(document.getElementById(i)){
+			var elem = this.choiceArray[i];
+			var arr = "[";
+			var len = elem.nextScene.length;
+			for(var j=0;j<len;j++){arr += '"' + elem.nextScene[j] + '", ';}
+			arr = arr.substring(0, arr.length-2) + ']';
+			document.getElementById(i).setAttribute("onClick", 'choiceMade(' + elem.time + ',' + elem.moneySpent + ',' + elem.healthChange + ',' + arr + ')');
+		}
+	  }
+  }
+}
+
+function choiceMade(time, money, health, scene){
+	document.getElementById('money').innerHTML -= money;
+	document.getElementById('health').value += health;
+	document.getElementById("choice").parentNode.removeChild(document.getElementById("choice"));
+	relayScene(scene);
+};
+
+function setDialogue(text){
+	document.getElementById('dialogue').innerHTML = text;
+};
+
+function relaySceneRec(textArray, pointer, dec){
+	setDialogue(textArray[pointer]);
+	if(textArray.length != pointer){
+		var nextButton = document.createElement('button');
+		nextButton.innerHTML = "Next";
+		document.body.appendChild(nextButton);
+		nextButton.addEventListener("click", function(){
+		nextButton.parentNode.removeChild(nextButton);
+		relaySceneRec(textArray, ++pointer, dec)});
+	}
+	else{
+		dec.makeChoice();
+	}
+};
+
+function relayScene(textArray, dec){
+	relaySceneRec(textArray, 0, dec);
+};
+
+
+var scene1 = ["Your alarm wakes you up at 8am, just like every other day.", 
+			  "You head downstairs and decide to get something for breakfast before going to work, since you can’t work at your best on an empty stomach."];
+var scene1a = ["The sugary cereal doesn't hold much nutrition."];
+var scene1b = ["The processed meat is unhealthy for you."];
+var scene1c = ["You eat a healthy bowl of porridge."];
+
+var scene2 = ["Test", "Lol"];
+			  
+var dec1 = new Decision("What food to choose?");
+dec1.addChoice("Chocolate Puffs", 0, 0, -3, scene1a);
+dec1.addChoice("Eggs and Bacon", 0, 0, -2, scene1b);
+dec1.addChoice("Porridge", 0, 0, 2, scene1c);
+
+relayScene(scene1, dec1);
+
+
+</script>
+
+</body>
+</html>
