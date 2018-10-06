@@ -27,7 +27,12 @@ body {
 .btn-group button:hover {
     background-color: #3e8e41;
 }
-
+#h1 {
+    color: red;
+    background=purple;
+    border=2px;
+    align=center;
+}
 .a{
     color: red;
 }
