@@ -100,11 +100,28 @@ function relayScene(textArray, dec){
 };
 
 
-var scene1 = ["Your alarm wakes you up at 8am, just like every other day.", 
-			  "You head downstairs and decide to get something for breakfast before going to work, since you can’t work at your best on an empty stomach."];
-var scene1a = ["The sugary cereal doesn't hold much nutrition."];
-var scene1b = ["The processed meat is unhealthy for you."];
-var scene1c = ["You eat a healthy bowl of porridge."];
+var scene10 = ["Your alarm wakes you up at 8am, just like every other day.", 
+	       "You head downstairs and decide to get something for breakfast before going to work, since you can’t work at your best on an empty stomach."];
+var scene10a = ["The sugary cereal doesn't hold much nutrition."];
+var scene10b = ["The processed meat is unhealthy for you."];
+var scene10c = ["You eat a healthy bowl of porridge."];
+var scene11 = ["Before heading for work, you realise you will need to go to the supermarket for food. You get paid by the hour, so you will have to wait until you have finished work."]
+var scene11a = ["It will be harder to reach your daily step goal, but this is more time efficient."];
+var scene11b = ["Some activity can only be good for you. But you arrived late and so lost some money"];
+
+var scene12 = ["Time to go for lunch."];
+var scene12a = ["Water is always a good choice."];
+var scene12b = ["The sugar levels in such drinks are higher than what you would expect."];
+var scene12c = ["Tastes good but is not healthy."];
+
+var scene13 = ["After heading home, you realise you must pay your bills."];
+var scene13a = ["This implies less money to buy healthy food."];
+
+var scene14 = ["You have some free time, but must go to the supermarket which is far away."];
+var scene14a = ["Frozen food contains too much added sugar."];
+var scene14b = ["Canned Soup had high sodium levels."];
+var scene14c = ["Vegetarian pizza still contains too much fat to be beneficial."];
+
 
 var scene20 = ["You awaken after a good night's rest."];
 var scene20a = ["An egg sandwich is highly nutritious."];
@@ -126,21 +143,21 @@ var scene24b = ["Some simple meals containing red meat can be enough to give you
 var scene24c = ["Boiling them would be healthier."];
 
 var dec24 = new Decision("What dinner will you be having:");
-dec24.addChoice("Get a take-away", 0, -4, -3, scene24a);
-dec24.addChoice("Cook some rice and beef", 0, -4, 3, scene24b);
-dec24.addChoice("Stir-fry a combination of vegetables", 0, -3, 4, scene24c);
+dec24.addChoice("Get a take-away", 0, 4, -3, scene24a);
+dec24.addChoice("Cook some rice and beef", 0, 4, 3, scene24b);
+dec24.addChoice("Stir-fry a combination of vegetables", 0, 3, 4, scene24c);
 
-var dec23 = new Decision("How do you want to spend your free time (remember your time and money are limite)?");
-dec23.addChoice("Head to the gym", 0, -4, 4, scene23a.concat(scene24), "dec24");
-dec23.addChoice("Go for a beer", 0, -2, -2, scene23b.concat(scene24), "dec24");
+var dec23 = new Decision("How do you want to spend your free time (remember your time and money are limited)?");
+dec23.addChoice("Head to the gym", 0, 4, 4, scene23a.concat(scene24), "dec24");
+dec23.addChoice("Go for a beer", 0, 2, -2, scene23b.concat(scene24), "dec24");
 	
 var dec22 = new Decision("Your colleagues are offering you to go get some tacos:");
-dec22.addChoice("Go get tacos", 0, -4, -4, scene22a.concat(scene23), "dec23");
-dec22.addChoice("Get salad at the cafeteria", 0, -3, 2, scene22b.concat(scene23), "dec23");
+dec22.addChoice("Go get tacos", 0, 4, -4, scene22a.concat(scene23), "dec23");
+dec22.addChoice("Get salad at the cafeteria", 0, 3, 2, scene22b.concat(scene23), "dec23");
 dec22.addChoice("Skip this meal and keep working", 0, 10, -6, scene22c.concat(scene23), "dec23");
 
 var dec21 = new Decision("How will you head to work today?");
-dec21.addChoice("By car", 0, -5, 0, scene21a.concat(scene22), "dec22");
+dec21.addChoice("By car", 0, 5, 0, scene21a.concat(scene22), "dec22");
 dec21.addChoice("By foot", 0, 0, 3, scene21b.concat(scene22), "dec22");
 
 var dec20 = new Decision("What will you be having for breakfast this time?");
@@ -148,11 +165,30 @@ dec20.addChoice("Egg sandwich", 0, 0, 4, scene20a.concat(scene21), "dec21");
 dec20.addChoice("Yogurt", 0, 0, -2, scene20b.concat(scene21), "dec21");
 dec20.addChoice("Bagel and croissant", 0, 0, -3, scene20c.concat(scene21), "dec21");
 
-var dec1 = new Decision("What food to choose?");
-dec1.addChoice("Chocolate Puffs", 0, 0, -3, scene1a.concat(scene20), "dec20");
-dec1.addChoice("Eggs and Bacon", 0, 0, -2, scene1b.concat(scene20), "dec20");
-dec1.addChoice("Porridge", 0, 0, 2, scene1c.concat(scene20), "dec20");
-relayScene(scene1, dec1);
+var dec14 = new Decision("You head to the supermarket to buy your dinner.");
+dec14.addChoice("Frozen food", 0, 3, -3, scene14a.concat(scene20), "dec20");
+dec14.addChoice("Canned soup", 0, 2, -1, scene14b.concat(scene20), "dec20");
+dec14.addChoice("Vegetarian pizza", 0, -3, -4, scene14c.concat(scene20), "dec20");
+
+var dec13 = new Decision("You must pay 12$ for this month.");
+dec13.addChoice("Pay bills", 0, 12, 0, scene13a.concat(scene14), "dec14");
+
+var dec12 = new Decision("What drink will you pick with your lunch?");
+dec12.addChoice("Water", 0, 0, 2, scene12a.concat(scene13), "dec13");
+dec12.addChoice("Vitamin water", 0, 4, -3, scene12b.concat(scene13), "dec13");
+dec12.addChoice("Cola", 0, 2, -4, scene12b.concat(scene13), "dec13");
+
+var dec11 = new Decision("How will you head to work today?");
+dec11.addChoice("By car", 0, 5, 0, scene11a.concat(scene12), "dec12");
+dec11.addChoice("By foot", 0, 6, 3, scene11b.concat(scene12), "dec12");
+
+var dec10 = new Decision("What food to choose?");
+dec10.addChoice("Chocolate Puffs", 0, 0, -3, scene10a.concat(scene11), "dec11");
+dec10.addChoice("Eggs and Bacon", 0, 0, -2, scene10b.concat(scene11), "dec11");
+dec10.addChoice("Porridge", 0, 0, 2, scene10c.concat(scene11), "dec11");
+relayScene(scene10, dec10);
+
+
 
 
 
