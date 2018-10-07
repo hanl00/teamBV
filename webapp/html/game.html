@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
@@ -105,14 +105,61 @@ var scene1a = ["The sugary cereal doesn't hold much nutrition."];
 var scene1b = ["The processed meat is unhealthy for you."];
 var scene1c = ["You eat a healthy bowl of porridge."];
 
-var scene2 = ["Test", "Lol"];
-			  
+var scene20 = ["You awaken after a good night's rest."];
+var scene20a = ["An egg sandwich is highly nutritious."];
+var scene20b = ["Contrary to popular belief, yogurt is not a healthy breakfast."];
+var scene20c = ["As expected, this is quite an unhealthy choice."];
+var scene21 = ["Now it is time to head to work."];
+var scene21a = ["Taking your car costs more and is less healthy, but you save time."];
+var scene21b = ["This is some form of exercise."];
+var scene22 = ["You have worked through the morning, time for some well deserved lunch."];
+var scene22a = ["Your relations improve, but not your health."];
+var scene22b = ["As you'd think, salad is good for your health."];
+var scene22c = ["Your make more money, but skipping meals is never a good idea."];
+var scene23 = ["You have finally finished today's work, and decide to head home and relax."];
+var scene23a = ["Depending on the availability, going to the gym is a good option."];
+var scene23b = ["A good time, yet not a healthy habit."];
+var scene24 = ["After coming back home, you decide to grab dinner."];
+var scene24a = ["Take-away may be time efficient, but it's at the cost of your health."];
+var scene24b = ["Some simple meals containing red meat can be enough to give you the required daily protein."];
+var scene24c = ["Boiling them would be healthier."];
+
+
 var dec1 = new Decision("What food to choose?");
 dec1.addChoice("Chocolate Puffs", 0, 0, -3, scene1a);
 dec1.addChoice("Eggs and Bacon", 0, 0, -2, scene1b);
 dec1.addChoice("Porridge", 0, 0, 2, scene1c);
-
 relayScene(scene1, dec1);
+
+var dec20 = new Decision("What will you be having for breakfast this time?");
+dec20.addChoice("Egg sandwich", 0, 0, 4, scene20a);
+dec20.addChoice("Yogurt", 0, 0, -2, scene20b);
+dec20.addChoice("Bagel and croissant", 0, 0, -3, scene20c);
+relayScene(scene20, dec20);
+
+var dec21 = new Decision("How will you head to work today?");
+dec21.addChoice("By car", 0, -5, 0, scene21a);
+dec21.addChoice("By foot", 0, 0, 3, scene21b);
+relayScene(scene21, dec21);
+
+var dec22 = new Decision("Your colleagues are offering you to go get some tacos:");
+dec22.addChoice("Go get tacos", 0, -4, -4, scene22a);
+dec22.addChoice("Get salad at the cafeteria", 0, -3, 2, scene22b);
+dec22.addChoice("Skip this meal and keep working", 0, 10, -6, scene22c);
+relayScene(scene22, dec22);
+
+var dec23 = new Decision("How do you want to spend your free time (remember your time and money are limite)?");
+dec23.addChoice("Head to the gym", 0, -4, 4, scene23a);
+dec23.addChoice("Go for a beer", 0, -2, -2, scene23b);
+relayScene(scene23, dec23);
+
+var dec24 = new Decision("What dinner will you be having:");
+dec24.addChoice("Get a take-away", 0, -4, -3, scene24a);
+dec24.addChoice("Cook some rice and beef", 0, -4, 3, scene24b);
+dec24.addChoice("Stir-fry a combination of vegetables", 0, -3, 4, scene24c);
+relayScene(scene24, dec24);
+			  
+
 
 
 </script>
