@@ -11,7 +11,7 @@
 
 <body>
 
-Money: <text id="money">40</text>
+Money: $<text id="money">40</text>
 <br>
 Health: <progress id="health" value="50" max="100">foo</progress>
 <br><br>
@@ -148,13 +148,13 @@ dec24.addChoice("Cook some rice and beef", 0, 4, 3, scene24b);
 dec24.addChoice("Stir-fry a combination of vegetables", 0, 3, 4, scene24c);
 
 var dec23 = new Decision("How do you want to spend your free time (remember your time and money are limited)?");
-dec23.addChoice("Head to the gym", 0, 4, 4, scene23a.concat(scene24), "dec24");
+dec23.addChoice("Head to the gym", 0, 8, 4, scene23a.concat(scene24), "dec24");
 dec23.addChoice("Go for a beer", 0, 2, -2, scene23b.concat(scene24), "dec24");
 	
 var dec22 = new Decision("Your colleagues are offering you to go get some tacos:");
 dec22.addChoice("Go get tacos", 0, 4, -4, scene22a.concat(scene23), "dec23");
 dec22.addChoice("Get salad at the cafeteria", 0, 3, 2, scene22b.concat(scene23), "dec23");
-dec22.addChoice("Skip this meal and keep working", 0, 10, -6, scene22c.concat(scene23), "dec23");
+dec22.addChoice("Skip this meal and keep working", 0, -10, -6, scene22c.concat(scene23), "dec23");
 
 var dec21 = new Decision("How will you head to work today?");
 dec21.addChoice("By car", 0, 5, 0, scene21a.concat(scene22), "dec22");
@@ -168,7 +168,7 @@ dec20.addChoice("Bagel and croissant", 0, 0, -3, scene20c.concat(scene21), "dec2
 var dec14 = new Decision("You head to the supermarket to buy your dinner.");
 dec14.addChoice("Frozen food", 0, 3, -3, scene14a.concat(scene20), "dec20");
 dec14.addChoice("Canned soup", 0, 2, -1, scene14b.concat(scene20), "dec20");
-dec14.addChoice("Vegetarian pizza", 0, -3, -4, scene14c.concat(scene20), "dec20");
+dec14.addChoice("Vegetarian pizza", 0, 3, -4, scene14c.concat(scene20), "dec20");
 
 var dec13 = new Decision("You must pay 12$ for this month.");
 dec13.addChoice("Pay bills", 0, 12, 0, scene13a.concat(scene14), "dec14");
