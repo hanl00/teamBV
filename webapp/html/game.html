@@ -19,7 +19,8 @@ Health: <progress id="health" value="50" max="100">foo</progress>
 
 <script>
 class DecisionChoice {
-  constructor(text, time, moneySpent, healthChange, nextScene) {
+  constructor(text, time, moneySpent, healthChange, nextScene, dec) {
+    this.dec = dec;
 	this.text = text;
 	this.time = time;
 	this.moneySpent = moneySpent;
@@ -34,8 +35,8 @@ class Decision {
 	this.choiceArray = [];
   }
 
-  addChoice(text, time, moneySpent, healthChange, scene) {
-	this.choiceArray.push(new DecisionChoice(text, time, moneySpent, healthChange, scene));
+  addChoice(text, time, moneySpent, healthChange, scene, dec) {
+	this.choiceArray.push(new DecisionChoice(text, time, moneySpent, healthChange, scene, dec));
   }
 	
   makeChoice() {
@@ -62,17 +63,17 @@ class Decision {
 			var len = elem.nextScene.length;
 			for(var j=0;j<len;j++){arr += '"' + elem.nextScene[j] + '", ';}
 			arr = arr.substring(0, arr.length-2) + ']';
-			document.getElementById(i).setAttribute("onClick", 'choiceMade(' + elem.time + ',' + elem.moneySpent + ',' + elem.healthChange + ',' + arr + ')');
+			document.getElementById(i).setAttribute("onClick", 'choiceMade(' + elem.time + ',' + elem.moneySpent + ',' + elem.healthChange + ',' + arr + ',' + elem.dec + ')');
 		}
 	  }
   }
 }
 
-function choiceMade(time, money, health, scene){
+function choiceMade(time, money, health, scene, dec){
 	document.getElementById('money').innerHTML -= money;
 	document.getElementById('health').value += health;
 	document.getElementById("choice").parentNode.removeChild(document.getElementById("choice"));
-	relayScene(scene);
+	relayScene(scene, dec);
 };
 
 function setDialogue(text){
@@ -89,7 +90,7 @@ function relaySceneRec(textArray, pointer, dec){
 		nextButton.parentNode.removeChild(nextButton);
 		relaySceneRec(textArray, ++pointer, dec)});
 	}
-	else{
+	else {
 		dec.makeChoice();
 	}
 };
@@ -124,41 +125,40 @@ var scene24a = ["Take-away may be time efficient, but it's at the cost of your h
 var scene24b = ["Some simple meals containing red meat can be enough to give you the required daily protein."];
 var scene24c = ["Boiling them would be healthier."];
 
-
-var dec1 = new Decision("What food to choose?");
-dec1.addChoice("Chocolate Puffs", 0, 0, -3, scene1a);
-dec1.addChoice("Eggs and Bacon", 0, 0, -2, scene1b);
-dec1.addChoice("Porridge", 0, 0, 2, scene1c);
-relayScene(scene1, dec1);
-
-var dec20 = new Decision("What will you be having for breakfast this time?");
-dec20.addChoice("Egg sandwich", 0, 0, 4, scene20a);
-dec20.addChoice("Yogurt", 0, 0, -2, scene20b);
-dec20.addChoice("Bagel and croissant", 0, 0, -3, scene20c);
-relayScene(scene20, dec20);
-
-var dec21 = new Decision("How will you head to work today?");
-dec21.addChoice("By car", 0, -5, 0, scene21a);
-dec21.addChoice("By foot", 0, 0, 3, scene21b);
-relayScene(scene21, dec21);
-
-var dec22 = new Decision("Your colleagues are offering you to go get some tacos:");
-dec22.addChoice("Go get tacos", 0, -4, -4, scene22a);
-dec22.addChoice("Get salad at the cafeteria", 0, -3, 2, scene22b);
-dec22.addChoice("Skip this meal and keep working", 0, 10, -6, scene22c);
-relayScene(scene22, dec22);
-
-var dec23 = new Decision("How do you want to spend your free time (remember your time and money are limite)?");
-dec23.addChoice("Head to the gym", 0, -4, 4, scene23a);
-dec23.addChoice("Go for a beer", 0, -2, -2, scene23b);
-relayScene(scene23, dec23);
-
 var dec24 = new Decision("What dinner will you be having:");
 dec24.addChoice("Get a take-away", 0, -4, -3, scene24a);
 dec24.addChoice("Cook some rice and beef", 0, -4, 3, scene24b);
 dec24.addChoice("Stir-fry a combination of vegetables", 0, -3, 4, scene24c);
-relayScene(scene24, dec24);
-			  
+
+var dec23 = new Decision("How do you want to spend your free time (remember your time and money are limite)?");
+dec23.addChoice("Head to the gym", 0, -4, 4, scene23a.concat(scene24), "dec24");
+dec23.addChoice("Go for a beer", 0, -2, -2, scene23b.concat(scene24), "dec24");
+	
+var dec22 = new Decision("Your colleagues are offering you to go get some tacos:");
+dec22.addChoice("Go get tacos", 0, -4, -4, scene22a.concat(scene23), "dec23");
+dec22.addChoice("Get salad at the cafeteria", 0, -3, 2, scene22b.concat(scene23), "dec23");
+dec22.addChoice("Skip this meal and keep working", 0, 10, -6, scene22c.concat(scene23), "dec23");
+
+var dec21 = new Decision("How will you head to work today?");
+dec21.addChoice("By car", 0, -5, 0, scene21a.concat(scene22), "dec22");
+dec21.addChoice("By foot", 0, 0, 3, scene21b.concat(scene22), "dec22");
+
+var dec20 = new Decision("What will you be having for breakfast this time?");
+dec20.addChoice("Egg sandwich", 0, 0, 4, scene20a.concat(scene21), "dec21");
+dec20.addChoice("Yogurt", 0, 0, -2, scene20b.concat(scene21), "dec21");
+dec20.addChoice("Bagel and croissant", 0, 0, -3, scene20c.concat(scene21), "dec21");
+
+var dec1 = new Decision("What food to choose?");
+dec1.addChoice("Chocolate Puffs", 0, 0, -3, scene1a.concat(scene20), "dec20");
+dec1.addChoice("Eggs and Bacon", 0, 0, -2, scene1b.concat(scene20), "dec20");
+dec1.addChoice("Porridge", 0, 0, 2, scene1c.concat(scene20), "dec20");
+relayScene(scene1, dec1);
+
+
+
+
+
+
 
 
 
