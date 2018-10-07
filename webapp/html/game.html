@@ -15,6 +15,7 @@ Money: $<text id="money">40</text>
 <br>
 Health: <progress id="health" value="50" max="100">foo</progress>
 <br><br>
+<img id="player" width="200" height="240" src = "Character_average.png"/>
 <h3 id="dialogue"/>
 
 <script>
@@ -73,6 +74,15 @@ function choiceMade(time, money, health, scene, dec){
 	document.getElementById('money').innerHTML -= money;
 	document.getElementById('health').value += health;
 	document.getElementById("choice").parentNode.removeChild(document.getElementById("choice"));
+
+	var h = document.getElementById("health").value;
+	if(h <= 35){
+		document.getElementById("player").setAttribute("src", "Character_fat.png");
+} else if(h>=65) {
+		document.getElementById("player").setAttribute("src", "Character_happy.png");
+} else {
+		document.getElementById("player").setAttribute("src", "Character_average.png");
+}
 	relayScene(scene, dec);
 };
 
@@ -173,26 +183,26 @@ var scene34b=["Late sleep may lead to increased risk of weight gain."]
 
 <!--day3choice-->
 var dec34 = new Decision("How will you spend your night?")
-dec34.addChoice("Stay home", 0, 0, 0, scene34a);
-dec34.addChoice("Head out", 0, +15, -8, scene34b);
+dec34.addChoice("Stay home", 0, 0, -3, scene34a);
+dec34.addChoice("Head out", 0, 15, -8, scene34b);
 
 var dec33 = new Decision("What will you be having for dinner?")
 dec33.addChoice("Left-over fried rice from yesterday", 0, 0, -1, scene33a.concat(scene34),"dec34");
-dec33.addChoice("Order fish and chips 50% off ", 0, -1, -2, scene33b.concat(scene34),"dec34");
-dec33.addChoice("Prepare whole wheat pasta", 0, -1, +1, scene33c.concat(scene34),"dec34");
+dec33.addChoice("Order fish and chips 50% off ", 0, 1, -2, scene33b.concat(scene34),"dec34");
+dec33.addChoice("Prepare whole wheat pasta", 0, 1, +1, scene33c.concat(scene34),"dec34");
     
 var dec32 = new Decision("What will u pick at the cafeteria?")
-dec32.addChoice("Cod and beans", 0, -6, +3, scene32a.concat(scene33),"dec33");
-dec32.addChoice("Tomato Soup", 0, -3, 2, scene32b.concat(scene33),"dec33");
-dec32.addChoice("Fish and chips", 0, -1, -2, scene32c.concat(scene33),"dec33");
+dec32.addChoice("Cod and beans", 0, 6, +3, scene32a.concat(scene33),"dec33");
+dec32.addChoice("Tomato Soup", 0, 3, 2, scene32b.concat(scene33),"dec33");
+dec32.addChoice("Fish and chips", 0, 1, -2, scene32c.concat(scene33),"dec33");
     
 var dec31 = new Decision("How will you get to work?")
-dec31.addChoice("Take the car", 0, -5, 0, scene31a.concat(scene32),"dec32");
-dec31.addChoice("Take public transports", 0, -3, 0, scene31b.concat(scene32),"dec32");
+dec31.addChoice("Take the car", 0, 5, 0, scene31a.concat(scene32),"dec32");
+dec31.addChoice("Take public transports", 0, 3, 0, scene31b.concat(scene32),"dec32");
 
 var dec30 = new Decision("What will you be having for breakfast?")
-dec30.addChoice("Coco cereals", 0, -1, -4, scene30a.concat(scene31),"dec31");
-dec30.addChoice("A fruit salad", 0, -3, 2, scene30b.concat(scene31),"dec31");
+dec30.addChoice("Coco cereals", 0, 1, -4, scene30a.concat(scene31),"dec31");
+dec30.addChoice("A fruit salad", 0, 3, 2, scene30b.concat(scene31),"dec31");
 dec30.addChoice("Just a coffee", 0, 0, -5, scene30c.concat(scene31),"dec31");
 
 <!--day2 choice-->
@@ -226,7 +236,7 @@ dec14.addChoice("Canned soup", 0, 2, -1, scene14b.concat(scene20), "dec20");
 dec14.addChoice("Vegetarian pizza", 0, 3, -4, scene14c.concat(scene20), "dec20");
 
 var dec13 = new Decision("You must pay 12$ for this month.");
-dec13.addChoice("Pay bills", 0, 12, 0, scene13a.concat(scene14), "dec14");
+dec13.addChoice("Pay bills", 0, 20, 0, scene13a.concat(scene14), "dec14");
 
 var dec12 = new Decision("What drink will you pick with your lunch?");
 dec12.addChoice("Water", 0, 0, 2, scene12a.concat(scene13), "dec13");
