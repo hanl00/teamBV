@@ -99,7 +99,7 @@ function relayScene(textArray, dec){
 	relaySceneRec(textArray, 0, dec);
 };
 
-
+<!-- day 1-->
 var scene10 = ["Your alarm wakes you up at 8am, just like every other day.", 
 	       "You head downstairs and decide to get something for breakfast before going to work, since you can’t work at your best on an empty stomach."];
 var scene10a = ["The sugary cereal doesn't hold much nutrition."];
@@ -122,7 +122,7 @@ var scene14a = ["Frozen food contains too much added sugar."];
 var scene14b = ["Canned Soup had high sodium levels."];
 var scene14c = ["Vegetarian pizza still contains too much fat to be beneficial."];
 
-
+<!--day2-->
 var scene20 = ["You awaken after a good night's rest."];
 var scene20a = ["An egg sandwich is highly nutritious."];
 var scene20b = ["Contrary to popular belief, yogurt is not a healthy breakfast."];
@@ -141,11 +141,65 @@ var scene24 = ["After coming back home, you decide to grab dinner."];
 var scene24a = ["Take-away may be time efficient, but it's at the cost of your health."];
 var scene24b = ["Some simple meals containing red meat can be enough to give you the required daily protein."];
 var scene24c = ["Boiling them would be healthier."];
+    
 
+<!--day3-->
+var scene30 = ["You manage to wake up to the sound of your alarm as you went to bed quite early last night. Time to head down for breakfast, unfortunately you are out of eggs."]
+var scene30a = ["You can feel your health deteriorate with each bite."]
+var scene30b = ["An apple a day keeps the doctor away."]
+var scene30c = ["Starting the day with an empty stomach isn't ideal."]
+
+var scene31 = ["Alright, time to head off! It is pouring today, so you must take the car or the public transports (although the latter may take more time)"]
+var scene31a =["You got caught in a traffic jam."]
+var scene31b =["You were impressed by the punctuality of public transport."]
+
+var scene32 = ["Your morning shift has ended and you are ready to head out for lunch, however the storm is still raging outside. You will have to do with what the cafeteria has to offer today. You can choose between an assortment of cod and beans, a tomato soup, or you can also order fish and chips (knowing it will be 50% off today)"]
+var scene32a =["Cod is a good source of heart-healthy omega-3 fatty acids."]
+var scene32b =["Tomato soup is a great source of vitamin C."]
+var scene32c =["Deep fried is not the healthiest choice."]
+
+var scene33 =["Work has ended, but the flooded roads caused some delays in traffic on your way back home, impeding on your usual free time. You decide to get dinner straight away."]
+var scene33a =["Left overs can be stored in the fridge up to four days. However fried rice has a high calorie content."]
+var scene33b =["Deep fried is not the healthiest choice."]
+var scene33c =["Whole wheat pasta contains natural fibres, high amounts of manganese and selenium."]
+
+var scene34 =["Your colleagues have invited you to a networking session which could prove very useful to your career, followed by at night at the club to dance the stress away. You could decide to stay home but miss out on a great opportunity."]
+var scene34a=["You went to bed early."]
+var scene34b=["Late sleep may lead to increased risk of weight gain."]
+
+
+
+
+
+<!--day3choice-->
+var dec34 = new Decision("How will you spend your night?")
+dec34.addChoice("Stay home", 0, 0, 0, scene34a);
+dec34.addChoice("Head out", 0, +15, -8, scene34b);
+
+var dec33 = new Decision("What will you be having for dinner?")
+dec33.addChoice("Left-over fried rice from yesterday", 0, 0, -1, scene33a.concat(scene34),"dec34");
+dec33.addChoice("Order fish and chips 50% off ", 0, -1, -2, scene33b.concat(scene34),"dec34");
+dec33.addChoice("Prepare whole wheat pasta", 0, -1, +1, scene33c.concat(scene34),"dec34");
+    
+var dec32 = new Decision("What will u pick at the cafeteria?")
+dec32.addChoice("Cod and beans", 0, -6, +3, scene32a.concat(scene33),"dec33");
+dec32.addChoice("Tomato Soup", 0, -3, 2, scene32b.concat(scene33),"dec33");
+dec32.addChoice("Fish and chips", 0, -1, -2, scene32c.concat(scene33),"dec33");
+    
+var dec31 = new Decision("How will you get to work?")
+dec31.addChoice("Take the car", 0, -5, 0, scene31a.concat(scene32),"dec32");
+dec31.addChoice("Take public transports", 0, -3, 0, scene31b.concat(scene32),"dec32");
+
+var dec30 = new Decision("What will you be having for breakfast?")
+dec30.addChoice("Coco cereals", 0, -1, -4, scene30a.concat(scene31),"dec31");
+dec30.addChoice("A fruit salad", 0, -3, 2, scene30b.concat(scene31),"dec31");
+dec30.addChoice("Just a coffee", 0, 0, -5, scene30c.concat(scene31),"dec31");
+
+<!--day2 choice-->
 var dec24 = new Decision("What dinner will you be having:");
-dec24.addChoice("Get a take-away", 0, 4, -3, scene24a);
-dec24.addChoice("Cook some rice and beef", 0, 4, 3, scene24b);
-dec24.addChoice("Stir-fry a combination of vegetables", 0, 3, 4, scene24c);
+dec24.addChoice("Get a take-away", 0, 4, -3, scene24a.concat(scene30), "dec30");
+dec24.addChoice("Cook some rice and beef", 0, 4, 3, scene24b.concat(scene30), "dec30");
+dec24.addChoice("Stir-fry a combination of vegetables", 0, 3, 4, scene24c.concat(scene30), "dec30");
 
 var dec23 = new Decision("How do you want to spend your free time (remember your time and money are limited)?");
 dec23.addChoice("Head to the gym", 0, 8, 4, scene23a.concat(scene24), "dec24");
@@ -165,6 +219,7 @@ dec20.addChoice("Egg sandwich", 0, 0, 4, scene20a.concat(scene21), "dec21");
 dec20.addChoice("Yogurt", 0, 0, -2, scene20b.concat(scene21), "dec21");
 dec20.addChoice("Bagel and croissant", 0, 0, -3, scene20c.concat(scene21), "dec21");
 
+<!--day1choice-->
 var dec14 = new Decision("You head to the supermarket to buy your dinner.");
 dec14.addChoice("Frozen food", 0, 3, -3, scene14a.concat(scene20), "dec20");
 dec14.addChoice("Canned soup", 0, 2, -1, scene14b.concat(scene20), "dec20");
@@ -187,16 +242,7 @@ dec10.addChoice("Chocolate Puffs", 0, 0, -3, scene10a.concat(scene11), "dec11");
 dec10.addChoice("Eggs and Bacon", 0, 0, -2, scene10b.concat(scene11), "dec11");
 dec10.addChoice("Porridge", 0, 0, 2, scene10c.concat(scene11), "dec11");
 relayScene(scene10, dec10);
-
-
-
-
-
-
-
-
-
-
+    
 
 </script>
 
